@@ -1,7 +1,6 @@
 # TODO:
 # - pl descryptions
 # - docs need to be included in package
-# - *.desktop file
 # - patches propably need love too
 #
 Summary:	Those Funny Funguloids - a nice little piece of entertainment
@@ -12,6 +11,7 @@ License:	zlib/libpng
 Group:		X11/Applications/Games
 Source0:	http://dl.sourceforge.net/funguloids/%{name}-linux-%{version}.tar.bz2
 # Source0-md5:	45ef7a0da156d7b65627a674fcfb12f0
+Source1:	%{name}.desktop
 Patch0:		%{name}-lua51.patch
 Patch1:		%{name}-path.patch
 URL:		http://funguloids.sourceforge.net/
@@ -58,6 +58,8 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_bindir}
 mv -f $RPM_BUILD_ROOT%{_prefix}/games/%{name} $RPM_BUILD_ROOT%{_bindir}
 
+cp %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -67,3 +69,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/%{name}
 %{_datadir}/games/%{name}
 %{_pixmapsdir}/%{name}.png
+%{_desktopdir}/%{name}.desktop
