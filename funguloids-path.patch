@@ -1,0 +1,41 @@
+--- x/bin/music/Makefile.am	2007-05-21 16:44:29.000000000 +0200
++++ x/bin/music/Makefile.am	2007-05-27 14:05:12.000000000 +0200
+@@ -1,14 +1,11 @@
+-musicinstall_DATA = playlist.lua
++musicinstall_DATA = playlist.lua \
++	MarylandInMay.ogg
+ 
+ EXTRA_DIST = playlist.lua.in
+ 
+ playlist.lua: playlist.lua.in
+ 	cat playlist.lua.in | sed 's,%%musicinstalldir%%,@musicinstalldir@,' > playlist.lua
+ 
+-install-data-hook:
+-	if test -r MarylandInMay.ogg; then cp MarylandInMay.ogg "@musicinstalldir@"; fi;
+-
+-
+ distclean: clean
+ 
+ clean:
+--- x/bin/Makefile.am	2007-05-05 14:41:16.000000000 +0200
++++ x/bin/Makefile.am	2007-05-27 20:36:46.000000000 +0200
+@@ -4,7 +4,7 @@
+ dist_pixmapinstall_DATA = funguloids.png
+ dist_gameinstall_DATA = gamesettings.cfg
+ dist_docinstall_DATA = readme.html
+-gameinstall_DATA = plugins.cfg resources.cfg
++gameinstall_DATA = plugins.cfg resources.cfg funguloids.mpk bootstrap.mpk
+ 
+ plugins.cfg: plugins.cfg.in
+ 	cat plugins.cfg.in | sed 's,%%ogreplugindir%%,@ogreplugindir@/,' > plugins.cfg
+@@ -22,9 +22,7 @@
+ 		if test ! -e "@highscoredir@/hiscore.lst"; then cp hiscore.lst.in "@highscoredir@/hiscore.lst"; fi; \
+ 		chgrp -R @highscoregroup@ "@highscoredir@"; \
+ 		chmod -R g+w "@highscoredir@"; \
+-	fi; \
+-	if test -r bootstrap.mpk; then cp bootstrap.mpk "@gameinstalldir@"; fi; \
+-	if test -r funguloids.mpk; then cp funguloids.mpk "@gameinstalldir@"; fi
++	fi;
+ 
+ uninstall-hook:
+ 	rm -rf "@docinstalldir@"
