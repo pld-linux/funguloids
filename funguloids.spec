@@ -1,9 +1,9 @@
 # TODO:
-# - pl descryptions
 # - docs need to be included in package
 # - patches propably need love too
 #
 Summary:	Those Funny Funguloids - a nice little piece of entertainment
+Summary(pl.UTF-8):	Those Funny Funguliods - przyjemny, mały przedmiot rozrywki
 Name:		funguloids
 Version:	1.06
 Release:	0.1
@@ -15,6 +15,8 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-lua51.patch
 Patch1:		%{name}-path.patch
 URL:		http://funguloids.sourceforge.net/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	freealut-devel
 BuildRequires:	libmad-devel
 BuildRequires:	libogg-devel
@@ -29,10 +31,16 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 "Those Funny Funguloids!" is a nice little piece of entertainment. You
 collect mushrooms, bring them back to your home base and profit!
-That's the basic idea in a nutshell. It has smooth, appealing 3d
+That's the basic idea in a nutshell. It has smooth, appealing 3D
 graphics and nice atmospheric sound effects.
 
 Go ahead and try it out - it has sounds too!
+
+%description -l pl.UTF-8
+"Those Funny Funguloids!" (te zabawne Funguloidy) to przyjemny, mały
+przedmiot rozrywki. Gracz zbiera grzyby i przynosi je do domu. Taka
+jest podstawowa idea gry w pigułce. Ma płynną, przyciągającą grafikę
+3D i miłe, atmosferyczne efekty dźwiękowe.
 
 %prep
 %setup -q -n %{name}
@@ -45,7 +53,7 @@ Go ahead and try it out - it has sounds too!
 %{__autoheader}
 %{__automake}
 %configure \
-	--with-lua=%{_includedir}/lua51 \
+	--with-lua=%{_includedir}/lua51
 
 %{__make}
 
@@ -57,7 +65,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_desktopdir}}
 mv -f $RPM_BUILD_ROOT%{_prefix}/games/%{name} $RPM_BUILD_ROOT%{_bindir}
-cp %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
